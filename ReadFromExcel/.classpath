@@ -6,6 +6,9 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
 	<classpathentry kind="lib" path="C:/Users/zhangqiang/Downloads/poi-3.13/poi-ooxml-schemas-3.13-20150929.jar"/>
 	<classpathentry kind="lib" path="C:/Users/zhangqiang/Downloads/poi-3.13/ooxml-lib/xmlbeans-2.6.0.jar"/>
+<<<<<<< HEAD
 	<classpathentry kind="lib" path="E:/Program Files/MySQL/Connector J 5.1.30/mysql-connector-java-5.1.30-bin.jar"/>
+=======
+>>>>>>> refs/remotes/origin/master
 	<classpathentry kind="output" path="bin"/>
 </classpath>

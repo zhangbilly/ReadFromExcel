@@ -23,6 +23,7 @@ public class MainFrame extends JFrame implements ActionListener{
 	private ChooseFilePanel chooseFilePanel;
 	private MappingPanel mappingPanel;
 	private PreviewPanel previewPanel;
+<<<<<<< HEAD
 	private DBSettingPanel dbSettingPanel;
 	private JPanel mainPanel;
 	private JPanel controlPanel;
@@ -107,6 +108,79 @@ public class MainFrame extends JFrame implements ActionListener{
 				dbSetting = dbSettingPanel.getDBSetting();
 				
 				
+=======
+	private JPanel mainPanel;
+	private JPanel controlPanel;
+	private HashMap<String,String> map;
+	private File file;
+	
+	
+	private JButton preStep;
+	private JButton nextStep;
+	private CardLayout card;
+	private int index=1;
+	public MainFrame(){
+		//选择文件Panel
+		chooseFilePanel = new ChooseFilePanel();
+		//映射Panel
+		mappingPanel = new MappingPanel();
+		previewPanel = new PreviewPanel();
+		//主Panel		
+		card = new CardLayout();
+		mainPanel = new JPanel(card);
+		mainPanel.add(chooseFilePanel);
+		mainPanel.add(mappingPanel);
+		mainPanel.add(previewPanel);
+		//ControlPanel
+		controlPanel = new JPanel();
+		preStep = new JButton("上一步");
+		preStep.addActionListener(this);
+		nextStep = new JButton("下一步");
+		nextStep.addActionListener(this);
+		controlPanel.add(preStep);
+		controlPanel.add(nextStep);
+		
+		//Frame
+		this.setLayout(new BorderLayout());
+		this.add(mainPanel,BorderLayout.CENTER);
+		this.add(controlPanel,BorderLayout.SOUTH);		
+		this.setSize(300, 200);
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setVisible(true);
+	}
+		
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		new MainFrame();
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		if(e.getSource()==nextStep){
+			if(index==1){
+				file = chooseFilePanel.getFile();
+				if(file ==null){
+					
+					return;
+				}
+				mappingPanel.reset(file);
+				card.next(mainPanel);
+				index=2;
+				
+			}else if(index==2){
+				map = mappingPanel.getMapping();
+				if(map==null){
+					return;
+				}
+				previewPanel.setNameToCodeMap(map);
+				previewPanel.setFile(file);
+				previewPanel.setTableName(mappingPanel.getTableName());
+				previewPanel.reset(mappingPanel.getColumns());
+
+				card.next(mainPanel);
+				index++;
+>>>>>>> refs/remotes/origin/master
 			}
 		}
 	}
