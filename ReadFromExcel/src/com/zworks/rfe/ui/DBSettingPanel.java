@@ -3,16 +3,20 @@ package com.zworks.rfe.ui;
 import java.awt.GridLayout;
 import java.io.File;
 import java.util.HashMap;
+import java.util.Map;
 
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import com.zworks.rfe.util.DBUtil;
+
 public class DBSettingPanel extends JPanel{
 	private File file;
 	private HashMap<String,String> nameTocodeMap;
 	private String tableName;
+	private HashMap<String,String> dbSetting;
 	
 	private JLabel l_dbType;
 	private JComboBox<String> cb_dbType;
@@ -34,7 +38,7 @@ public class DBSettingPanel extends JPanel{
 	
 	public DBSettingPanel(){
 		l_dbType = new JLabel("数据库类型：");
-		cb_dbType = new JComboBox<String>(new String[]{"MySQL"});
+		cb_dbType = new JComboBox<String>(new String[]{"mysql"});
 		
 		l_host = new JLabel("主机：");
 		tf_host = new JTextField();
@@ -65,5 +69,18 @@ public class DBSettingPanel extends JPanel{
 		this.add(l_password);
 		this.add(tf_password);
 		
+	}
+	public HashMap<String,String> getDBSetting(){
+		if(dbSetting==null){
+			dbSetting = new HashMap<String,String>();
+		}
+		dbSetting.put(DBUtil.DBTYPE, (String) cb_dbType.getSelectedItem());
+		dbSetting.put(DBUtil.HOST, tf_host.getText());
+		dbSetting.put(DBUtil.PORT, tf_port.getText());
+		dbSetting.put(DBUtil.DBNAME, tf_dbName.getText());
+		dbSetting.put(DBUtil.USERNAME, tf_userName.getText());
+		dbSetting.put(DBUtil.PASSWORD, tf_password.getText());
+		return dbSetting;
+
 	}
 }

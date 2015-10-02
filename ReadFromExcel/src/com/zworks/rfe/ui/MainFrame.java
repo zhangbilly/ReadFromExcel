@@ -28,6 +28,7 @@ public class MainFrame extends JFrame implements ActionListener{
 	private JPanel controlPanel;
 	private HashMap<String,String> map;
 	private File file;
+	private HashMap<String,String> dbSetting;
 	
 	
 	private JButton preStep;
@@ -102,6 +103,10 @@ public class MainFrame extends JFrame implements ActionListener{
 			}else if(index ==3){
 				card.next(mainPanel);
 				index++;
+			}else if(index ==4){
+				dbSetting = dbSettingPanel.getDBSetting();
+				
+				
 			}
 		}
 	}
