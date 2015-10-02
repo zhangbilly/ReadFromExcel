@@ -23,6 +23,7 @@ public class MainFrame extends JFrame implements ActionListener{
 	private ChooseFilePanel chooseFilePanel;
 	private MappingPanel mappingPanel;
 	private PreviewPanel previewPanel;
+	private DBSettingPanel dbSettingPanel;
 	private JPanel mainPanel;
 	private JPanel controlPanel;
 	private HashMap<String,String> map;
@@ -38,13 +39,17 @@ public class MainFrame extends JFrame implements ActionListener{
 		chooseFilePanel = new ChooseFilePanel();
 		//映射Panel
 		mappingPanel = new MappingPanel();
+		//预览Panel
 		previewPanel = new PreviewPanel();
+		//数据库设置Panel
+		dbSettingPanel = new DBSettingPanel();
 		//主Panel		
 		card = new CardLayout();
 		mainPanel = new JPanel(card);
 		mainPanel.add(chooseFilePanel);
 		mainPanel.add(mappingPanel);
 		mainPanel.add(previewPanel);
+		mainPanel.add(dbSettingPanel);
 		//ControlPanel
 		controlPanel = new JPanel();
 		preStep = new JButton("上一步");
@@ -92,6 +97,9 @@ public class MainFrame extends JFrame implements ActionListener{
 				previewPanel.setTableName(mappingPanel.getTableName());
 				previewPanel.reset(mappingPanel.getColumns());
 
+				card.next(mainPanel);
+				index++;
+			}else if(index ==3){
 				card.next(mainPanel);
 				index++;
 			}
