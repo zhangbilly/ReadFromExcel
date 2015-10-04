@@ -46,9 +46,10 @@ public class ExcelUtil {
 
 	}
 
-	public static String getPreviewSql(File file,int queryIndex,String tablename,List<String> columns,HashMap<String,String> naneToCodeMap){
+	public static List<String> getPreviewSql(File file,int queryIndex,String tablename,List<String> columns,HashMap<String,String> naneToCodeMap){
 		StringBuffer sb = new StringBuffer();
 		Workbook wb;
+		List<String> sql = new ArrayList<String>();
 		Map<String,List<String>> map = new HashMap<String,List<String>>();
 		try {
 			wb = WorkbookFactory.create(file);
@@ -102,7 +103,8 @@ public class ExcelUtil {
 				sb.append(naneToCodeMap.get(columns.get(queryIndex)));
 				sb.append(" = ");
 				sb.append(l.get(queryIndex));
-				sb.append(";\n");
+				sb.append(";");
+				sql.add(sb.toString());
 			}
 	
 			
@@ -117,6 +119,6 @@ public class ExcelUtil {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return sb.toString();
+		return sql;
 	}
 }

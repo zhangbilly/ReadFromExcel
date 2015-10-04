@@ -65,8 +65,14 @@ public class PreviewPanel extends JPanel implements ActionListener{
 	}
 	public void resetSql(String s){
 		
-		String sql = ExcelUtil.getPreviewSql(file,columns.indexOf(s),tableName,columns,nameToCodeMap);
-		ta_sql.setText(sql);
+		List<String> sql = ExcelUtil.getPreviewSql(file,columns.indexOf(s),tableName,columns,nameToCodeMap);
+		StringBuffer sb = new StringBuffer();
+		for(int i=0;i<sql.size();i++){
+			sb.append(sql.get(i));
+			sb.append("\n");
+		}
+		sb.deleteCharAt(sb.length()-1);
+		ta_sql.setText(sb.toString());
 	}
 	public HashMap<String, String> getNameToCodeMap() {
 		return nameToCodeMap;

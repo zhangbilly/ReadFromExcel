@@ -2,57 +2,56 @@ package com.zworks.rfe.ui;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
-import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.io.File;
 import java.util.HashMap;
-import java.util.Map;
 
 import javax.swing.JButton;
-import javax.swing.JFileChooser;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class MainFrame extends JFrame implements ActionListener{
+import com.zworks.rfe.ui.ChooseFilePanel;
+import com.zworks.rfe.ui.DBSettingPanel;
+import com.zworks.rfe.ui.MappingPanel;
+import com.zworks.rfe.ui.PreviewPanel;
 
-	//panel
+public class MainFrame extends JFrame implements ActionListener {
+
+	// panel
 	private ChooseFilePanel chooseFilePanel;
 	private MappingPanel mappingPanel;
 	private PreviewPanel previewPanel;
-<<<<<<< HEAD
+
 	private DBSettingPanel dbSettingPanel;
 	private JPanel mainPanel;
 	private JPanel controlPanel;
-	private HashMap<String,String> map;
+	private HashMap<String, String> map;
 	private File file;
-	private HashMap<String,String> dbSetting;
-	
-	
+	private HashMap<String, String> dbSetting;
+
 	private JButton preStep;
 	private JButton nextStep;
 	private CardLayout card;
-	private int index=1;
-	public MainFrame(){
-		//选择文件Panel
+	private int index = 1;
+
+	public MainFrame() {
+		// 选择文件Panel
 		chooseFilePanel = new ChooseFilePanel();
-		//映射Panel
+		// 映射Panel
 		mappingPanel = new MappingPanel();
-		//预览Panel
+		// 预览Panel
 		previewPanel = new PreviewPanel();
-		//数据库设置Panel
+		// 数据库设置Panel
 		dbSettingPanel = new DBSettingPanel();
-		//主Panel		
+		// 主Panel
 		card = new CardLayout();
 		mainPanel = new JPanel(card);
 		mainPanel.add(chooseFilePanel);
 		mainPanel.add(mappingPanel);
 		mainPanel.add(previewPanel);
 		mainPanel.add(dbSettingPanel);
-		//ControlPanel
+		// ControlPanel
 		controlPanel = new JPanel();
 		preStep = new JButton("上一步");
 		preStep.addActionListener(this);
@@ -60,16 +59,16 @@ public class MainFrame extends JFrame implements ActionListener{
 		nextStep.addActionListener(this);
 		controlPanel.add(preStep);
 		controlPanel.add(nextStep);
-		
-		//Frame
+
+		// Frame
 		this.setLayout(new BorderLayout());
-		this.add(mainPanel,BorderLayout.CENTER);
-		this.add(controlPanel,BorderLayout.SOUTH);		
+		this.add(mainPanel, BorderLayout.CENTER);
+		this.add(controlPanel, BorderLayout.SOUTH);
 		this.setSize(300, 200);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setVisible(true);
 	}
-		
+
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		new MainFrame();
@@ -78,20 +77,20 @@ public class MainFrame extends JFrame implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-		if(e.getSource()==nextStep){
-			if(index==1){
+		if (e.getSource() == nextStep) {
+			if (index == 1) {
 				file = chooseFilePanel.getFile();
-				if(file ==null){
-					
+				if (file == null) {
+
 					return;
 				}
 				mappingPanel.reset(file);
 				card.next(mainPanel);
-				index=2;
-				
-			}else if(index==2){
+				index = 2;
+
+			} else if (index == 2) {
 				map = mappingPanel.getMapping();
-				if(map==null){
+				if (map == null) {
 					return;
 				}
 				previewPanel.setNameToCodeMap(map);
@@ -101,89 +100,14 @@ public class MainFrame extends JFrame implements ActionListener{
 
 				card.next(mainPanel);
 				index++;
-			}else if(index ==3){
+			} else if (index == 3) {
 				card.next(mainPanel);
 				index++;
-			}else if(index ==4){
+			} else if (index == 4) {
 				dbSetting = dbSettingPanel.getDBSetting();
-				
-				
-=======
-	private JPanel mainPanel;
-	private JPanel controlPanel;
-	private HashMap<String,String> map;
-	private File file;
-	
-	
-	private JButton preStep;
-	private JButton nextStep;
-	private CardLayout card;
-	private int index=1;
-	public MainFrame(){
-		//选择文件Panel
-		chooseFilePanel = new ChooseFilePanel();
-		//映射Panel
-		mappingPanel = new MappingPanel();
-		previewPanel = new PreviewPanel();
-		//主Panel		
-		card = new CardLayout();
-		mainPanel = new JPanel(card);
-		mainPanel.add(chooseFilePanel);
-		mainPanel.add(mappingPanel);
-		mainPanel.add(previewPanel);
-		//ControlPanel
-		controlPanel = new JPanel();
-		preStep = new JButton("上一步");
-		preStep.addActionListener(this);
-		nextStep = new JButton("下一步");
-		nextStep.addActionListener(this);
-		controlPanel.add(preStep);
-		controlPanel.add(nextStep);
-		
-		//Frame
-		this.setLayout(new BorderLayout());
-		this.add(mainPanel,BorderLayout.CENTER);
-		this.add(controlPanel,BorderLayout.SOUTH);		
-		this.setSize(300, 200);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setVisible(true);
-	}
-		
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		new MainFrame();
-	}
 
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		if(e.getSource()==nextStep){
-			if(index==1){
-				file = chooseFilePanel.getFile();
-				if(file ==null){
-					
-					return;
-				}
-				mappingPanel.reset(file);
-				card.next(mainPanel);
-				index=2;
-				
-			}else if(index==2){
-				map = mappingPanel.getMapping();
-				if(map==null){
-					return;
-				}
-				previewPanel.setNameToCodeMap(map);
-				previewPanel.setFile(file);
-				previewPanel.setTableName(mappingPanel.getTableName());
-				previewPanel.reset(mappingPanel.getColumns());
-
-				card.next(mainPanel);
-				index++;
->>>>>>> refs/remotes/origin/master
 			}
 		}
+
 	}
-
-
 }
