@@ -5,10 +5,12 @@ import java.awt.CardLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.sql.Statement;
 import java.util.HashMap;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import com.zworks.rfe.ui.ChooseFilePanel;
@@ -57,9 +59,12 @@ public class MainFrame extends JFrame implements ActionListener {
 		controlPanel = new JPanel();
 		preStep = new JButton("上一步");
 		preStep.addActionListener(this);
+
 		nextStep = new JButton("下一步");
 		nextStep.addActionListener(this);
-		controlPanel.add(preStep);
+
+		finishButton = new JButton("完成");
+		finishButton.addActionListener(this);
 		controlPanel.add(nextStep);
 
 		// Frame
@@ -89,8 +94,8 @@ public class MainFrame extends JFrame implements ActionListener {
 				}
 				mappingPanel.reset(file);
 				card.next(mainPanel);
-				this.setSize(mappingPanel.getPreferredSize());
-				setLocationRelativeTo(null);
+				controlPanel.add(preStep,0);
+				resetSize(mappingPanel);
 				index = 2;
 
 			} else if (index == 2) {
@@ -104,20 +109,67 @@ public class MainFrame extends JFrame implements ActionListener {
 				previewPanel.reset(mappingPanel.getColumns());
 
 				card.next(mainPanel);
-				this.setSize(previewPanel.getPreferredSize());
-				setLocationRelativeTo(null);
+				resetSize(previewPanel);
 				index++;
 			} else if (index == 3) {
 				card.next(mainPanel);
-				this.setSize(dbSettingPanel.getPreferredSize());
-				setLocationRelativeTo(null);
+				controlPanel.remove(nextStep);
+				controlPanel.add(finishButton);
+				resetSize(dbSettingPanel);
 				index++;
-			} else if (index == 4) {
-				dbSetting = dbSettingPanel.getDBSetting();
-				DBUtil.getConnection(dbSetting);
-				DBUtil.executeUpdate(previewPanel.getSql());
+			}
+		} else if (e.getSource().equals(preStep)) {
+			switch (index) {
+			case 2:
+				controlPanel.remove(preStep);
+				card.previous(mainPanel);
+				resetSize(chooseFilePanel);
+				index--;
+				break;
+			case 3:
+				card.previous(mainPanel);
+				resetSize(mappingPanel);
+				index--;
+				break;
+			case 4:
+				card.previous(mainPanel);
+				resetSize(previewPanel);
+				controlPanel.remove(finishButton);
+				controlPanel.add(nextStep);
+				index--;
+				break;
+
+			}
+		}else if(e.getSource().equals(finishButton)){
+			dbSetting = dbSettingPanel.getDBSetting();
+			DBUtil.getConnection(dbSetting);
+			int count[] = DBUtil.executeUpdate(previewPanel.getSql());
+			int success = 0;
+			int failed = 0;
+			for(int i=0;i<count.length;i++){
+				if(count[i]==Statement.EXECUTE_FAILED)
+					failed++;
+				else if(count[i]>0){
+					success +=count[i];
+				}
+			}
+			StringBuffer sb = new StringBuffer();
+			sb.append("共成功更新：");
+			sb.append(success);
+			sb.append("行记录；\n");
+			sb.append("共失败：");
+			sb.append(failed);
+			sb.append("行记录；\n");
+
+			if(JOptionPane.showConfirmDialog(this, sb.toString(),"退出？",JOptionPane.YES_NO_OPTION)==JOptionPane.YES_OPTION){
+				this.dispose() ;
 			}
 		}
 
 	}
+	public void resetSize(JPanel jpanel){
+		this.setSize(jpanel.getPreferredSize());
+		setLocationRelativeTo(null);
+	}
+
 }
