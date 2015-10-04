@@ -18,23 +18,27 @@ public class MappingPanel extends JPanel{
 	private JTextField t_tableName;
 	Map<String,JTextField> m_columns;
 	List<String> columns;
+	boolean initialized =false;
 	
 	public MappingPanel(){
 		m_columns = new HashMap<String, JTextField>();
 	}
 	public void reset(File file){
-		columns = ExcelUtil.getColumnNames(file);
-		System.out.println(columns.size());
-		this.setLayout(new GridLayout(columns.size()+1, 2));
-		l_tableName = new JLabel("表名：");
-		t_tableName = new JTextField();
-		this.add(l_tableName);
-		this.add(t_tableName);
-		for(String s:columns){
-			this.add(new JLabel(s));
-			m_columns.put(s, new JTextField());
-			this.add(m_columns.get(s));
+		if(!initialized){
+			columns = ExcelUtil.getColumnNames(file);
+			this.setLayout(new GridLayout(columns.size()+1, 2));
+			l_tableName = new JLabel("表名：");
+			t_tableName = new JTextField();
+			this.add(l_tableName);
+			this.add(t_tableName);
+			for(String s:columns){
+				this.add(new JLabel(s));
+				m_columns.put(s, new JTextField());
+				this.add(m_columns.get(s));
+			}
+			initialized = true;
 		}
+
 	}
 	public HashMap<String,String> getMapping(){
 		HashMap<String,String> map = new HashMap<String, String>();
