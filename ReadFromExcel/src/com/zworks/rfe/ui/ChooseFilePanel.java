@@ -45,11 +45,13 @@ public class ChooseFilePanel extends JPanel implements ActionListener{
 		if(e.getSource().equals(openFile)){
 			jfc=new JFileChooser();  
 	        jfc.setFileSelectionMode(JFileChooser.FILES_ONLY );  
-	        jfc.showDialog(new JLabel(), "Ñ¡Ôñ");  
-	        file=jfc.getSelectedFile();  
-	        if(file!=null){
-	        	chosenFile.setText(file.getAbsolutePath());
+	        if(JFileChooser.APPROVE_OPTION==jfc.showDialog(new JLabel(), "Ñ¡Ôñ") ){
+		        file=jfc.getSelectedFile();  
+		        if(file!=null){
+		        	chosenFile.setText(file.getAbsolutePath());
+		        }
 	        }
+
 	        
 		}
 
