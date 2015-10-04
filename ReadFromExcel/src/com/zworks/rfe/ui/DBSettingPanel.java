@@ -2,10 +2,7 @@ package com.zworks.rfe.ui;
 
 import java.awt.Dimension;
 import java.awt.GridLayout;
-import java.io.File;
 import java.util.HashMap;
-import java.util.Map;
-
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -14,9 +11,6 @@ import javax.swing.JTextField;
 import com.zworks.rfe.util.DBUtil;
 
 public class DBSettingPanel extends JPanel{
-	private File file;
-	private HashMap<String,String> nameTocodeMap;
-	private String tableName;
 	private HashMap<String,String> dbSetting;
 	
 	private JLabel l_dbType;

@@ -5,18 +5,14 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
 import org.apache.poi.EncryptedDocumentException;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
-import org.apache.poi.ss.formula.functions.Column;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.DateUtil;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
-import org.apache.poi.util.StringUtil;
 
 public class ExcelUtil {
 	public static List<String> getColumnNames(File file) {
@@ -50,7 +46,6 @@ public class ExcelUtil {
 		
 		Workbook wb;
 		List<String> sql = new ArrayList<String>();
-		Map<String,List<String>> map = new HashMap<String,List<String>>();
 		try {
 			wb = WorkbookFactory.create(file);
 			Sheet sheet = wb.getSheetAt(0);
