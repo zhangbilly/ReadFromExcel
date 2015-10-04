@@ -20,9 +20,10 @@ public class ChooseFilePanel extends JPanel implements ActionListener{
 	private JButton openFile;
 	private JTextField chosenFile;
 	private File file;
+	private MainFrame jframe;
 	
-	public ChooseFilePanel(){
-		
+	public ChooseFilePanel(MainFrame jframe){
+		this.jframe = jframe;
 		chooseFile = new JLabel("Ñ¡ÔñÎÄ¼þ£º");
 		chosenFile = new JTextField(25);
 		chosenFile.setEditable(false);
@@ -35,11 +36,6 @@ public class ChooseFilePanel extends JPanel implements ActionListener{
 		this.add(openFile);
 		
 	}
-		
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		new ChooseFilePanel();
-	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource().equals(openFile)){
@@ -49,6 +45,15 @@ public class ChooseFilePanel extends JPanel implements ActionListener{
 		        file=jfc.getSelectedFile();  
 		        if(file!=null){
 		        	chosenFile.setText(file.getAbsolutePath());
+		        	Runnable r =new Runnable() {
+						
+						@Override
+						public void run() {
+							// TODO Auto-generated method stub
+							jframe.getMappingPanel().reset(file);
+						}
+					};
+					r.run();
 		        }
 	        }
 

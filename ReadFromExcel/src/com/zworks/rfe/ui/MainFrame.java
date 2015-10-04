@@ -41,7 +41,7 @@ public class MainFrame extends JFrame implements ActionListener {
 
 	public MainFrame() {
 		// —°‘ÒŒƒº˛Panel
-		chooseFilePanel = new ChooseFilePanel();
+		chooseFilePanel = new ChooseFilePanel(this);
 		// ”≥…‰Panel
 		mappingPanel = new MappingPanel();
 		// ‘§¿¿Panel
@@ -92,7 +92,7 @@ public class MainFrame extends JFrame implements ActionListener {
 
 					return;
 				}
-				mappingPanel.reset(file);
+				//mappingPanel.reset(file);
 				card.next(mainPanel);
 				controlPanel.add(preStep,0);
 				resetSize(mappingPanel);
@@ -170,6 +170,9 @@ public class MainFrame extends JFrame implements ActionListener {
 	public void resetSize(JPanel jpanel){
 		this.setSize(jpanel.getPreferredSize());
 		setLocationRelativeTo(null);
+	}
+	public MappingPanel getMappingPanel(){
+		return mappingPanel;
 	}
 
 }
