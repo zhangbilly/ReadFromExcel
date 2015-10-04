@@ -53,6 +53,26 @@ public class PreviewPanel extends JPanel implements ActionListener{
 			add(p_queryItem,BorderLayout.NORTH);
 			add(ta_sql,BorderLayout.CENTER);
 			initialized = true;
+		}else if(!this.columns.equals(columns)){
+			this.columns = columns;
+			map = new HashMap<String, JRadioButton>();
+			this.removeAll();
+			bg_queryItem = new ButtonGroup();
+			for(String s:columns){
+				map.put(s, new JRadioButton(s));
+				map.get(s).addActionListener(this);
+				bg_queryItem.add(map.get(s));
+			}
+			p_queryItem = new JPanel();
+			l_queryItem = new JLabel("Ñ¡Ôñ²éÑ¯×Ö¶Î");
+			p_queryItem.add(l_queryItem);
+			for(JRadioButton rb:map.values()){
+				p_queryItem.add(rb);
+			}
+			ta_sql = new JTextArea();
+			setLayout(new BorderLayout());
+			add(p_queryItem,BorderLayout.NORTH);
+			add(ta_sql,BorderLayout.CENTER);
 		}
 	}
 	@Override
