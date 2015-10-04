@@ -1,5 +1,6 @@
 package com.zworks.rfe.ui;
 
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.io.File;
 import java.util.HashMap;
@@ -82,5 +83,9 @@ public class DBSettingPanel extends JPanel{
 		dbSetting.put(DBUtil.PASSWORD, tf_password.getText());
 		return dbSetting;
 
+	}
+	@Override
+	public Dimension getPreferredSize(){
+		return new Dimension(300,200);
 	}
 }

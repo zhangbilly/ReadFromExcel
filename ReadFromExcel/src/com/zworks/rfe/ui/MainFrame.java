@@ -33,6 +33,7 @@ public class MainFrame extends JFrame implements ActionListener {
 
 	private JButton preStep;
 	private JButton nextStep;
+	private JButton finishButton;
 	private CardLayout card;
 	private int index = 1;
 
@@ -65,8 +66,9 @@ public class MainFrame extends JFrame implements ActionListener {
 		this.setLayout(new BorderLayout());
 		this.add(mainPanel, BorderLayout.CENTER);
 		this.add(controlPanel, BorderLayout.SOUTH);
-		this.setSize(300, 200);
+		this.setSize(chooseFilePanel.getPreferredSize());
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setLocationRelativeTo(null);
 		this.setVisible(true);
 	}
 
@@ -87,6 +89,8 @@ public class MainFrame extends JFrame implements ActionListener {
 				}
 				mappingPanel.reset(file);
 				card.next(mainPanel);
+				this.setSize(mappingPanel.getPreferredSize());
+				setLocationRelativeTo(null);
 				index = 2;
 
 			} else if (index == 2) {
@@ -100,9 +104,13 @@ public class MainFrame extends JFrame implements ActionListener {
 				previewPanel.reset(mappingPanel.getColumns());
 
 				card.next(mainPanel);
+				this.setSize(previewPanel.getPreferredSize());
+				setLocationRelativeTo(null);
 				index++;
 			} else if (index == 3) {
 				card.next(mainPanel);
+				this.setSize(dbSettingPanel.getPreferredSize());
+				setLocationRelativeTo(null);
 				index++;
 			} else if (index == 4) {
 				dbSetting = dbSettingPanel.getDBSetting();

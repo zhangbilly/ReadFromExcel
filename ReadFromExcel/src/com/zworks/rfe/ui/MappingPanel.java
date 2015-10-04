@@ -1,5 +1,6 @@
 package com.zworks.rfe.ui;
 
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.io.File;
 import java.util.HashMap;
@@ -47,5 +48,9 @@ public class MappingPanel extends JPanel{
 	}
 	public String getTableName(){
 		return t_tableName.getText();
+	}
+	@Override
+	public Dimension getPreferredSize(){
+		return new Dimension(300,200);
 	}
 }

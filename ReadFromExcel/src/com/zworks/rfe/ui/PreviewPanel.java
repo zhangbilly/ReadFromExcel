@@ -1,6 +1,7 @@
 package com.zworks.rfe.ui;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -89,5 +90,9 @@ public class PreviewPanel extends JPanel implements ActionListener{
 	}
 	public List<String> getSql(){
 		return sql;
+	}
+	@Override
+	public Dimension getPreferredSize(){
+		return new Dimension(800,600);
 	}
 }
