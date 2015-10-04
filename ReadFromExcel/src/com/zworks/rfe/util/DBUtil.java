@@ -58,19 +58,21 @@ public class DBUtil {
 
 	}
 
-	public static void executeUpdate(List<String> sql) {   
+	public static int[] executeUpdate(List<String> sql) {
+		int count[]=null;
     	try {
 			stmt = connnection.createStatement();
 			for(int i=0;i<sql.size();i++){
 				stmt.addBatch(sql.get(i));
 			}
-			stmt.executeBatch();
+			count = stmt.executeBatch();
     	} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally{
 			closeAll();
 	}
+		return count;
 	
 
     }
