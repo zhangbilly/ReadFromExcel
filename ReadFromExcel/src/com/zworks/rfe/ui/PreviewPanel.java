@@ -26,6 +26,7 @@ public class PreviewPanel extends JPanel implements ActionListener{
 	private HashMap<String,String> nameToCodeMap;
 	private File file;
 	private String tableName;
+	private List<String> sql;
 	public PreviewPanel(){
 		
 	}
@@ -65,7 +66,7 @@ public class PreviewPanel extends JPanel implements ActionListener{
 	}
 	public void resetSql(String s){
 		
-		List<String> sql = ExcelUtil.getPreviewSql(file,columns.indexOf(s),tableName,columns,nameToCodeMap);
+		sql = ExcelUtil.getPreviewSql(file,columns.indexOf(s),tableName,columns,nameToCodeMap);
 		StringBuffer sb = new StringBuffer();
 		for(int i=0;i<sql.size();i++){
 			sb.append(sql.get(i));
@@ -85,5 +86,8 @@ public class PreviewPanel extends JPanel implements ActionListener{
 	}
 	public void setTableName(String tableName) {
 		this.tableName = tableName;
+	}
+	public List<String> getSql(){
+		return sql;
 	}
 }

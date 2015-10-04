@@ -15,6 +15,7 @@ import com.zworks.rfe.ui.ChooseFilePanel;
 import com.zworks.rfe.ui.DBSettingPanel;
 import com.zworks.rfe.ui.MappingPanel;
 import com.zworks.rfe.ui.PreviewPanel;
+import com.zworks.rfe.util.DBUtil;
 
 public class MainFrame extends JFrame implements ActionListener {
 
@@ -105,7 +106,8 @@ public class MainFrame extends JFrame implements ActionListener {
 				index++;
 			} else if (index == 4) {
 				dbSetting = dbSettingPanel.getDBSetting();
-
+				DBUtil.getConnection(dbSetting);
+				DBUtil.executeUpdate(previewPanel.getSql());
 			}
 		}
 

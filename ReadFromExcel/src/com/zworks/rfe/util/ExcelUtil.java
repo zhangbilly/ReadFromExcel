@@ -47,7 +47,7 @@ public class ExcelUtil {
 	}
 
 	public static List<String> getPreviewSql(File file,int queryIndex,String tablename,List<String> columns,HashMap<String,String> naneToCodeMap){
-		StringBuffer sb = new StringBuffer();
+		
 		Workbook wb;
 		List<String> sql = new ArrayList<String>();
 		Map<String,List<String>> map = new HashMap<String,List<String>>();
@@ -57,6 +57,7 @@ public class ExcelUtil {
 			for(int i=1;i<sheet.getLastRowNum();i++){
 				Row r = sheet.getRow(i);
 				List<String> l = new ArrayList<String>();
+				StringBuffer sb = new StringBuffer();
 				for(Cell cell:r){
 					switch (cell.getCellType()) {
 	                case Cell.CELL_TYPE_STRING:
